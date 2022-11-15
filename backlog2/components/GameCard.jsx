@@ -1,6 +1,14 @@
-const GameCard = ({ image, name, id }) => {
+import { useRouter } from 'next/router'
+
+const GameCard = ({ image, name, id, slug }) => {
+  const router = useRouter()
+
+  const showGame = () => {
+    router.push(`/games/${slug}`)
+  }
+
   return (
-    <div className="game-card" key={id}>
+    <div className="game-card" key={id} onClick={() => showGame()}>
       <div className="img-wrapper">
         <img src={image} alt={name} />
       </div>

@@ -8,6 +8,7 @@ import {
 } from '@supabase/auth-helpers-react'
 import Search from '../../components/Search'
 import GameCard from '../../components/GameCard'
+import styles from '../../styles/UserPage.module.css'
 
 export default function UserHome() {
   const session = useSession()
@@ -23,7 +24,6 @@ export default function UserHome() {
     const response = await axios.get(
       `https://api.rawg.io/api/games?key=${rawg}&search=${searchQuery}`
     )
-    console.log(rawg)
     setSearchResults(response.data.results)
     setSearchQuery('')
   }
@@ -34,15 +34,15 @@ export default function UserHome() {
 
   return (
     <div>
-      <section className="container">
-        <div className="content">
+      <section className={styles.container}>
+        <div className={styles.content}>
           <Search
             onChange={handleChange}
             value={searchQuery}
             onSubmit={getSearchResults}
           />
-          <div className="search-results-wrapper">
-            <div className="search-results">
+          <div className={styles['scroll-bar-wrapper']}>
+            <div className={styles['scroll-bar']}>
               {searchResults.map((result) => (
                 <GameCard
                   key={result.id}
@@ -50,6 +50,7 @@ export default function UserHome() {
                   image={result.background_image}
                   rating={result.rating}
                   id={result.id}
+                  slug={result.slug}
                 />
               ))}
             </div>

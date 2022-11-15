@@ -1,0 +1,19 @@
+.game-content {
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+
+  margin: 0 auto;
+  align-items: center;
+  text-align: left;
+  justify-items: center;
+  color: #d9d9d9;
+ padding-inline: 3vw;
+}
+
+.game-info {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  text-align: center;
+  padding-inline: 3vw;
+}
