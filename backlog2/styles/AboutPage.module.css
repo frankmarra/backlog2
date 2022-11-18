@@ -1,0 +1,13 @@
+.about {
+  display: flex;
+  flex-flow: column;
+  color: #d9d9d9;
+  line-height: 25px;
+  margin-top: 30px;
+  padding: 0 50px;
+  text-align: center;
+  align-items: center;
+}
+.about p {
+  width: 60%;
+}

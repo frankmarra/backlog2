@@ -26,7 +26,7 @@ export default function Home() {
           <h1>Backlog</h1>
         </div>
         {!session ? (
-          <Auth supabaseClient={supabase} apperance={{ theme: ThemeSupa }} />
+          <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
         ) : (
           router.push(`/users/${session.user.id}`)
         )}
