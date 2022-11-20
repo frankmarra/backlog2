@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-const GameCard = ({ image, name, id, slug }) => {
+const GameCard = ({ image, name, id, slug, backgroundColor }) => {
   const router = useRouter()
 
   const showGame = () => {
@@ -8,7 +8,12 @@ const GameCard = ({ image, name, id, slug }) => {
   }
 
   return (
-    <div className="game-card" key={id} onClick={() => showGame()}>
+    <div
+      className="game-card"
+      key={id}
+      style={{ backgroundColor: `${backgroundColor}` }}
+      onClick={() => showGame()}
+    >
       <div className="img-wrapper">
         <img src={image} alt={name} />
       </div>

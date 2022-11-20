@@ -11,23 +11,29 @@ import { useUser } from '@supabase/auth-helpers-react'
 import UserGamesInProgress from '../../components/UserGamesInProgress'
 import UserGamesCompleted from '../../components/UserGamesCompleted'
 
-export async function getServersideProps({ params }) {
-  const { data, error } = await supabase
-    .from('userGames')
-    .select('*')
-    .eq('user_id', params.id)
+// export async function getServersideProps({ params }) {
+//   const { data, error } = await supabase
+//     .from('userGames')
+//     .select('*')
+//     .eq('user_id', params.id)
 
-  if (error) throw Error(error)
-  return {
-    props: data
-  }
-}
+//   if (error) throw Error(error)
+//   return {
+//     props: data
+//   }
+// }
 
-export default function UserHome({ data }) {
+export default function UserHome() {
   const user = useUser()
   const [searchResults, setSearchResults] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
+  const router = useRouter()
 
+  useEffect(() => {
+    if (!user) {
+      router.push('/')
+    }
+  }, [user])
   const getSearchResults = async (event) => {
     event.preventDefault()
     const response = await axios.get(
@@ -42,49 +48,53 @@ export default function UserHome({ data }) {
   }
 
   return (
-    <div>
-      <NavBar />
-      <section className={styles.container}>
-        <div className={styles.content}>
-          <Search
-            onChange={handleChange}
-            value={searchQuery}
-            onSubmit={getSearchResults}
-          />
-          <div className={styles['scroll-bar-wrapper']}>
-            <div className={styles['scroll-bar']}>
-              {searchResults.map((result) => (
-                <GameCard
-                  key={result.id}
-                  name={result.name}
-                  image={result.background_image}
-                  rating={result.rating}
-                  id={result.id}
-                  slug={result.slug}
-                />
-              ))}
+    user && (
+      <div>
+        <NavBar />
+        <section className={styles.container}>
+          <div className={styles.content}>
+            <p>Search for a game</p>
+            <Search
+              onChange={handleChange}
+              value={searchQuery}
+              onSubmit={getSearchResults}
+            />
+            <div className={styles['scroll-bar-wrapper']}>
+              <div className={styles['scroll-bar']}>
+                {searchResults.map((result) => (
+                  <GameCard
+                    key={result.id}
+                    name={result.name}
+                    image={result.background_image}
+                    rating={result.rating}
+                    id={result.id}
+                    slug={result.slug}
+                    backgroundColor={'#525759'}
+                  />
+                ))}
+              </div>
+            </div>
+            <h3>Games In Progress</h3>
+            <div className={styles['scroll-bar-wrapper']}>
+              <div className={styles['scroll-bar']}>
+                <UserGamesInProgress user={user} />
+              </div>
+            </div>
+            <h3>Games Not Started</h3>
+            <div className={styles['scroll-bar-wrapper']}>
+              <div className={styles['scroll-bar']}>
+                <UserGamesNotStarted user={user} />
+              </div>
+            </div>
+            <h3>Completed Games</h3>
+            <div className={styles['scroll-bar-wrapper']}>
+              <div className={styles['scroll-bar']}>
+                <UserGamesCompleted user={user} />
+              </div>
             </div>
           </div>
-          <h3>Games In Progress</h3>
-          <div className={styles['scroll-bar-wrapper']}>
-            <div className={styles['scroll-bar']}>
-              <UserGamesInProgress user={user} />
-            </div>
-          </div>
-          <h3>Games Not Started</h3>
-          <div className={styles['scroll-bar-wrapper']}>
-            <div className={styles['scroll-bar']}>
-              <UserGamesNotStarted user={user} />
-            </div>
-          </div>
-          <h3>Completed Games</h3>
-          <div className={styles['scroll-bar-wrapper']}>
-            <div className={styles['scroll-bar']}>
-              <UserGamesCompleted user={user} />
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    )
   )
 }

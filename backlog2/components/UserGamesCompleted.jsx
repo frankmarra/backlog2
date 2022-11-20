@@ -25,6 +25,7 @@ const UserGamesCompleted = ({ user }) => {
           name={game.name}
           image={game.image}
           slug={game.game_slug}
+          backgroundColor={'#339b7b'}
         />
       ))}
     </>

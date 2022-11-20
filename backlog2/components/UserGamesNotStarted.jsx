@@ -25,6 +25,7 @@ const UserGamesNotStarted = ({ user }) => {
           name={game.name}
           image={game.image}
           slug={game.game_slug}
+          backgroundColor={'#5d7ea2'}
         />
       ))}
     </>

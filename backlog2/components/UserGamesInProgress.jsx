@@ -26,6 +26,7 @@ const UserGamesInProgress = ({ user }) => {
           name={game.name}
           image={game.image}
           slug={game.game_slug}
+          backgroundColor={'#0d6bf2'}
         />
       ))}
     </>

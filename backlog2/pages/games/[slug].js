@@ -35,6 +35,7 @@ export default function GamePage({ game }) {
       }
 
       let { error } = await supabase.from('userGames').upsert(userGame)
+      alert('Game added to your library')
       getUserGames()
       if (error) throw error
     } catch (error) {
@@ -66,7 +67,11 @@ export default function GamePage({ game }) {
         .from('userGames')
         .update({ status: status })
         .eq('id', userGameList[0].id)
-    } catch (error) {}
+
+      alert(`Game status updated to ${status}`)
+    } catch (error) {
+      throw error
+    }
   }
 
   return (
