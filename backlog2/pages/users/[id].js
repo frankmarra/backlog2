@@ -11,18 +11,6 @@ import { useUser } from '@supabase/auth-helpers-react'
 import UserGamesInProgress from '../../components/UserGamesInProgress'
 import UserGamesCompleted from '../../components/UserGamesCompleted'
 
-// export async function getServersideProps({ params }) {
-//   const { data, error } = await supabase
-//     .from('userGames')
-//     .select('*')
-//     .eq('user_id', params.id)
-
-//   if (error) throw Error(error)
-//   return {
-//     props: data
-//   }
-// }
-
 export default function UserHome() {
   const user = useUser()
   const [searchResults, setSearchResults] = useState([])
@@ -37,7 +25,7 @@ export default function UserHome() {
   const getSearchResults = async (event) => {
     event.preventDefault()
     const response = await axios.get(
-      `https://api.rawg.io/api/games?key=${process.env.NEXT_PUBLIC_RAWG_KEY}&search=${searchQuery}`
+      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&search=${searchQuery}`
     )
     setSearchResults(response.data.results)
     setSearchQuery('')
