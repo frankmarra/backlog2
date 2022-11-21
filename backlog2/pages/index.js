@@ -5,7 +5,7 @@ import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
-export default function Home() {
+function Home() {
   const session = useSession()
   const supabase = useSupabaseClient()
   const router = useRouter()
@@ -39,3 +39,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Home
