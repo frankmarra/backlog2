@@ -49,7 +49,7 @@ export default function UserHome({ rawg }) {
         <NavBar />
         <section className={styles.container}>
           <div className={styles.content}>
-            <p>Search for a game</p>
+            <h2>Search for a game</h2>
             <Search
               onChange={handleChange}
               value={searchQuery}

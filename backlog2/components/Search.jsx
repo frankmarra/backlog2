@@ -8,7 +8,7 @@ const Search = ({ onSubmit, onChange, value }) => {
         placeholder="Search Games"
         onChange={onChange}
       />
-      <button className="game-search-button" type="submit">
+      <button className="game-search-button btn" type="submit">
         Submit
       </button>
     </form>

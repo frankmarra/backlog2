@@ -76,22 +76,25 @@ export default function GamePage({ game }) {
 
   return (
     <div className={styles['game-content']}>
-      <div className="image-container">
+      <div className={styles['image-container']}>
         <Image
           src={game.background_image}
           alt={game.name}
-          width={500}
-          height={500}
+          width={700}
+          height={700}
+          // sizes="(max-width: 768px) 100vw, (max-width: 1200px)33vw"
+          style={{ width: '100%', height: 'auto' }}
         />
       </div>
       <div className={styles['game-info']}>
-        <h2>{game.name}</h2>
+        <h1>{game.name}</h1>
         <h3>Released: {game.released}</h3>
         <h3>Rating: {game.rating}</h3>
         <p>{game.description_raw}</p>
 
         {userGameList?.length > 0 ? (
           <>
+            <p>Status: {userGameList[0].status}</p>
             <div className="drop-down-menu">
               <label htmlFor="game-status">Level Up:</label>
               <select
@@ -122,11 +125,10 @@ export default function GamePage({ game }) {
             add to library
           </button>
         )}
+        <Link className="btn" href={user ? `/users/${user.id}` : '/'}>
+          Back
+        </Link>
       </div>
-
-      <Link className="btn" href={user ? `/users/${user.id}` : '/'}>
-        Back
-      </Link>
     </div>
   )
 }
