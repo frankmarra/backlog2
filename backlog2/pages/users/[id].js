@@ -11,7 +11,13 @@ import { useUser } from '@supabase/auth-helpers-react'
 import UserGamesInProgress from '../../components/UserGamesInProgress'
 import UserGamesCompleted from '../../components/UserGamesCompleted'
 
-export default function UserHome() {
+export async function getServerSideProps() {
+  const rawg = process.env.NEXT_PUBLIC_RAWG_KEY
+
+  return { props: { rawg } }
+}
+
+export default function UserHome({ rawg }) {
   const user = useUser()
   const [searchResults, setSearchResults] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
@@ -25,10 +31,10 @@ export default function UserHome() {
 
   const getSearchResults = async (event) => {
     event.preventDefault()
-    const response = await axios.get({
-      url: `https://api.rawg.io/api/games?key=${process.env.NEXT_PUBLIC_RAWG_KEY}&search=${searchQuery}`
-    })
-    console.log('rawg key: ', process.env.RAWG_KEY)
+    const response = await axios.get(
+      `https://api.rawg.io/api/games?key=${rawg}&search=${searchQuery}`
+    )
+    console.log('rawg key: ', rawg)
     setSearchResults(response.data.results)
     setSearchQuery('')
   }
