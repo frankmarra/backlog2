@@ -22,11 +22,13 @@ export default function UserHome() {
       router.push('/')
     }
   }, [user])
+
   const getSearchResults = async (event) => {
     event.preventDefault()
-    const response = await axios.get(
-      `https://api.rawg.io/api/games?key=${process.env.RAWG_KEY}&search=${searchQuery}`
-    )
+    const response = await axios.get({
+      url: `https://api.rawg.io/api/games?key=${process.env.NEXT_PUBLIC_RAWG_KEY}&search=${searchQuery}`
+    })
+    console.log('rawg key: ', process.env.RAWG_KEY)
     setSearchResults(response.data.results)
     setSearchQuery('')
   }

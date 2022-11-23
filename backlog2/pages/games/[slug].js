@@ -8,7 +8,7 @@ import supabase from '../../utils/supabase'
 
 export async function getServerSideProps({ params }) {
   const res = await axios.get(
-    `https://api.rawg.io/api/games/${params.slug}?key=${process.env.RAWG_KEY}`
+    `https://api.rawg.io/api/games/${params.slug}?key=${process.env.NEXT_PUBLIC_RAWG_KEY}`
   )
   const game = res.data
 
